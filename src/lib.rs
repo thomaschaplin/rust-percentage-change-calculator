@@ -35,8 +35,6 @@ pub fn match_increase_or_decrease(first: u32, second: u32) -> (String, f32) {
             DECREASE.to_string(),
             calculate_percentage_decrease(first, second),
         ),
-        Ordering::Equal => {
-            (EQUAL.to_string(), 0.0)
-        }
+        Ordering::Equal => (EQUAL.to_string(), 0.0),
     }
 }
