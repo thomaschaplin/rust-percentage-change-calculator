@@ -20,10 +20,10 @@ It can then be said that the worth of the house went up by 10%.
 
 In simple terms, there are three calculations that we carry out, here's an example:
 
-The first number minus the second number
-The sum of the previous calculation divided by the first number
-The sum of the previous calculation multipled by 100
-The answer is the percentage changed
+- The first number minus the second number
+- The sum of the previous calculation divided by the first number
+- The sum of the previous calculation multipled by 100
+- The answer is the percentage changed
 
 ```
 50 - 10 = 40
@@ -51,15 +51,15 @@ Make sure you have [rust](https://www.rust-lang.org/) installed on your machine 
 
 ### Instructions
 
-* Clone this repository `git clone git@github.com:thomaschaplin/rust-percentage-change-calculator.git`
-* Change directory `cd rust-percentage-change-calculator`
-* Build the application `cargo build`
-* Run the application `cargo run <NUMBER> <NUMBER>`
+- Clone this repository `git clone git@github.com:thomaschaplin/rust-percentage-change-calculator.git`
+- Change directory `cd rust-percentage-change-calculator`
+- Build the application `cargo build`
+- Run the application `cargo run <NUMBER> <NUMBER>`
 
 ### Final Build
 
-* Build the application in release mode `cargo build --release`
-* Execute the `rust-percentage-change-calculator` binary file found in `target/release/rust-percentage-change-calculator`
+- Build the application in release mode `cargo build --release`
+- Execute the `rust-percentage-change-calculator` binary file found in `target/release/rust-percentage-change-calculator`
 
 #### Example Usage:
 
