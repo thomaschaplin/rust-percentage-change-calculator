@@ -1,5 +1,5 @@
-use std::env;
 use std::cmp::Ordering;
+use std::env;
 
 const INCREASE: &str = "+";
 const DECREASE: &str = "-";
@@ -27,8 +27,18 @@ pub fn calculate_percentage_decrease(first: u32, second: u32) -> f32 {
 
 pub fn match_increase_or_decrease(first: u32, second: u32) -> (String, f32) {
     match first.cmp(&second) {
-        Ordering::Less => return (INCREASE.to_string(), calculate_percentage_increase(first, second)),
-        Ordering::Greater => return (DECREASE.to_string(), calculate_percentage_decrease(first, second)),
+        Ordering::Less => {
+            return (
+                INCREASE.to_string(),
+                calculate_percentage_increase(first, second),
+            )
+        }
+        Ordering::Greater => {
+            return (
+                DECREASE.to_string(),
+                calculate_percentage_decrease(first, second),
+            )
+        }
         Ordering::Equal => {
             return (EQUAL.to_string(), 0.0);
         }
