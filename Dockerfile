@@ -8,7 +8,7 @@ RUN apt update && apt install -y musl-tools musl-dev
 RUN update-ca-certificates
 
 # Create appuser
-ENV USER=rust-percentage-change-calculator
+ENV USER=rust
 ENV UID=10001
 
 RUN adduser \
@@ -42,6 +42,6 @@ WORKDIR /rust-percentage-change-calculator
 COPY --from=builder /rust-percentage-change-calculator/target/x86_64-unknown-linux-musl/release/rust-percentage-change-calculator ./
 
 # Use an unprivileged user.
-USER rust-percentage-change-calculator:rust-percentage-change-calculator
+USER rust:rust
 
 ENTRYPOINT ["./rust-percentage-change-calculator"]
