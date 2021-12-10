@@ -1,9 +1,9 @@
 use std::cmp::Ordering;
 use std::env;
 
-const INCREASE: &str = "+";
-const DECREASE: &str = "-";
-const EQUAL: &str = "";
+const INCREASE: char = '+';
+const DECREASE: char = '-';
+const EQUAL: char = '\0';
 
 pub fn get_input(index: usize) -> u32 {
     let args: Vec<String> = env::args().collect();
