@@ -41,9 +41,7 @@ pub fn match_increase_or_decrease(first: u32, second: u32) -> (String, f32) {
 
 #[cfg(test)]
 mod tests {
-    use super::{
-        calculate_percentage_decrease, calculate_percentage_increase, match_increase_or_decrease,
-    };
+    use super::*;
     #[test]
     fn test_calculate_percentage_increase() {
         assert_eq!(calculate_percentage_increase(1, 2), 100.0);
