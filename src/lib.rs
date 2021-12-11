@@ -47,6 +47,7 @@ mod tests {
     #[test]
     fn test_calculate_percentage_increase() {
         assert_eq!(calculate_percentage_increase(1, 2), 100.0);
+        assert_eq!(calculate_percentage_increase(1, 1), 0.0);
     }
 
     fn test_calculate_percentage_decrease() {
