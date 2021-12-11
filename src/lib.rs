@@ -48,8 +48,10 @@ mod tests {
         assert_eq!(calculate_percentage_increase(1, 1), 0.0);
     }
 
+    #[test]
     fn test_calculate_percentage_decrease() {
-        assert_eq!(calculate_percentage_increase(2, 1), 100.0);
+        assert_eq!(calculate_percentage_decrease(2, 1), 50.0);
+        assert_eq!(calculate_percentage_decrease(1, 1), 0.0);
     }
 
     fn test_match_increase_or_decrease() {
