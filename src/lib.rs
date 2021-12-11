@@ -54,16 +54,16 @@ mod tests {
         assert_eq!(calculate_percentage_decrease(1, 1), 0.0);
     }
 
+    #[test]
     fn test_match_increase_or_decrease() {
-        let symbol_plus = "x";
-        let symbol_minus = "-";
         assert_eq!(
             match_increase_or_decrease(2, 1),
-            (symbol_plus.to_string(), 100.0)
+            (DECREASE.to_string(), 50.0)
         );
         assert_eq!(
             match_increase_or_decrease(1, 2),
-            (symbol_minus.to_string(), 100.0)
+            (INCREASE.to_string(), 100.0)
         );
+        assert_eq!(match_increase_or_decrease(1, 1), (EQUAL.to_string(), 0.0));
     }
 }
