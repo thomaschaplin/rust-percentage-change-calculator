@@ -1,6 +1,6 @@
 mod lib;
-use lib::get_input;
 use lib::calculate_percentage_change;
+use lib::get_input;
 
 fn main() {
     let first = get_input(1);
