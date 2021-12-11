@@ -38,3 +38,31 @@ pub fn match_increase_or_decrease(first: u32, second: u32) -> (String, f32) {
         Ordering::Equal => (EQUAL.to_string(), 0.0),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{
+        calculate_percentage_decrease, calculate_percentage_increase, match_increase_or_decrease,
+    };
+    #[test]
+    fn test_calculate_percentage_increase() {
+        assert_eq!(calculate_percentage_increase(1, 2), 100.0);
+    }
+
+    fn test_calculate_percentage_decrease() {
+        assert_eq!(calculate_percentage_increase(2, 1), 100.0);
+    }
+
+    fn test_match_increase_or_decrease() {
+        let symbol_plus = "x";
+        let symbol_minus = "-";
+        assert_eq!(
+            match_increase_or_decrease(2, 1),
+            (symbol_plus.to_string(), 100.0)
+        );
+        assert_eq!(
+            match_increase_or_decrease(1, 2),
+            (symbol_minus.to_string(), 100.0)
+        );
+    }
+}
