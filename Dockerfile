@@ -4,7 +4,7 @@
 FROM rust:latest AS builder
 
 RUN rustup target add x86_64-unknown-linux-musl
-RUN apt update && apt install -y musl-tools musl-dev
+RUN apt update && apt install -y musl-tools musl-dev binutils upx
 RUN update-ca-certificates
 
 # Create appuser
@@ -26,6 +26,10 @@ WORKDIR /rust-percentage-change-calculator
 COPY ./ .
 
 RUN cargo build --target x86_64-unknown-linux-musl --release
+
+RUN strip target/x86_64-unknown-linux-musl/release/rust-percentage-change-calculator
+
+RUN upx --best --lzma target/x86_64-unknown-linux-musl/release/rust-percentage-change-calculator
 
 ####################################################################################################
 ## Final Image
