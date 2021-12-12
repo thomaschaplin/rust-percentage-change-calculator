@@ -1,4 +1,3 @@
-use std::cmp::Ordering;
 use std::env;
 
 pub fn get_input(index: usize) -> u32 {
@@ -13,17 +12,14 @@ pub fn get_input(index: usize) -> u32 {
     result
 }
 
-pub fn calculate_percentage_change(first: u32, second: u32) -> (String, f32) {
-    match first.cmp(&second) {
-        Ordering::Less => (
-            "+".to_string(),
-            (second - first) as f32 / first as f32 * 100.0,
-        ),
-        Ordering::Greater => (
-            "-".to_string(),
-            (first - second) as f32 / first as f32 * 100.0,
-        ),
-        Ordering::Equal => ("".to_string(), 0.0),
+pub fn calculate_percentage_change(first: u32, second: u32) -> String {
+    if first < second {
+        return format!("+{}%", (second - first) as f32 / first as f32 * 100.0);
+    }
+    if first > second {
+        return format!("-{}%", (first - second) as f32 / first as f32 * 100.0);
+    } else {
+        "0%".to_string()
     }
 }
 
@@ -33,9 +29,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_match_increase_or_decrease() {
-        assert_eq!(calculate_percentage_change(2, 1), ("-".to_string(), 50.0));
-        assert_eq!(calculate_percentage_change(1, 2), ("+".to_string(), 100.0));
-        assert_eq!(calculate_percentage_change(1, 1), ("".to_string(), 0.0));
+    fn test_calculate_percentage_change() {
+        assert_eq!(calculate_percentage_change(2, 1), "-50%");
+        assert_eq!(calculate_percentage_change(1, 2), "+100%");
+        assert_eq!(calculate_percentage_change(1, 1), "0%");
     }
 }
