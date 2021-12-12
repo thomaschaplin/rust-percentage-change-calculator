@@ -1,7 +1,7 @@
-use std::env;
+use std::env::args;
 
 pub fn get_input(index: usize) -> u32 {
-    let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = args().collect();
     let result: u32 = match args[index].trim().parse() {
         Ok(num) => num,
         Err(_) => panic!(
