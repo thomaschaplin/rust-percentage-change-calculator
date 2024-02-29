@@ -1,47 +1,47 @@
-use std::env::args;
+use std::env;
 
 fn main() {
-    let first = get_input(1);
-    let second = get_input(2);
-    let percentage_change = calculate_percentage_change(first, second);
-    println!("{}", percentage_change);
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 3 {
+        eprintln!("Usage: {} <first_value> <second_value>", args[0]);
+        std::process::exit(1);
+    }
+
+    let first = parse_input(&args[1]);
+    let second = parse_input(&args[2]);
+    match calculate_percentage_change(first, second) {
+        Ok(percentage_change) => println!("{}", percentage_change),
+        Err(err) => {
+            eprintln!("{}", err);
+            std::process::exit(1);
+        }
+    }
 }
 
-pub fn get_input(index: usize) -> f32 {
-    let args: Vec<String> = args().collect();
-    let result: f32 = match args[index].trim().parse() {
-        Ok(num) => num,
-        Err(_) => panic!(
-            "Failed to read value \"{}\", we were expecting a u32 or f32!",
-            args[index].trim()
-        ),
+fn parse_input(input: &str) -> Result<f32, String> {
+    input.trim().parse().map_err(|_| format!("Failed to parse value: {}", input))
+}
+
+fn calculate_percentage_change(first: f32, second: f32) -> Result<String, String> {
+    let percentage_change = match (first, second) {
+        (f, s) if f < s => format!("+{}%", ((s - f) / f * 100.0)),
+        (f, s) if f > s => format!("-{}%", ((f - s) / f * 100.0)),
+        (_, _) => "0%".to_string(),
     };
-    result
-}
-
-pub fn calculate_percentage_change(first: f32, second: f32) -> String {
-    if first < second {
-        return format!("+{}%", (second - first) / first * 100.0);
-    }
-    if first > second {
-        format!("-{}%", (first - second) / first * 100.0)
-    } else {
-        "0%".to_string()
-    }
+    Ok(percentage_change)
 }
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[test]
     fn test_calculate_percentage_change() {
-        assert_eq!(calculate_percentage_change(1_f32, 2_f32), "+100%");
-        assert_eq!(calculate_percentage_change(2_f32, 1_f32), "-50%");
-        assert_eq!(calculate_percentage_change(1_f32, 1_f32), "0%");
-        assert_eq!(calculate_percentage_change(1.2, 2.4), "+100%");
-        assert_eq!(calculate_percentage_change(2.4, 1.2), "-50%");
-        assert_eq!(calculate_percentage_change(1.1, 1.1), "0%");
+        assert_eq!(calculate_percentage_change(1.0, 2.0), Ok("+100%".to_string()));
+        assert_eq!(calculate_percentage_change(2.0, 1.0), Ok("-50%".to_string()));
+        assert_eq!(calculate_percentage_change(1.0, 1.0), Ok("0%".to_string()));
+        assert_eq!(calculate_percentage_change(1.2, 2.4), Ok("+100%".to_string()));
+        assert_eq!(calculate_percentage_change(2.4, 1.2), Ok("-50%".to_string()));
+        assert_eq!(calculate_percentage_change(1.1, 1.1), Ok("0%".to_string()));
     }
 }
