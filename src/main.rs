@@ -10,15 +10,13 @@ fn main() {
     let first = parse_input(&args[1]);
     let second = parse_input(&args[2]);
     match (first, second) {
-        (Ok(first), Ok(second)) => {
-            match calculate_percentage_change(first, second) {
-                Ok(percentage_change) => println!("{}", percentage_change),
-                Err(err) => {
-                    eprintln!("{}", err);
-                    std::process::exit(1);
-                }
+        (Ok(first), Ok(second)) => match calculate_percentage_change(first, second) {
+            Ok(percentage_change) => println!("{}", percentage_change),
+            Err(err) => {
+                eprintln!("{}", err);
+                std::process::exit(1);
             }
-        }
+        },
         (Err(err), _) | (_, Err(err)) => {
             eprintln!("{}", err);
             std::process::exit(1);
@@ -27,7 +25,10 @@ fn main() {
 }
 
 fn parse_input(input: &str) -> Result<f32, String> {
-    input.trim().parse().map_err(|_| format!("Failed to parse value: {}", input))
+    input
+        .trim()
+        .parse()
+        .map_err(|_| format!("Failed to parse value: {}", input))
 }
 
 fn calculate_percentage_change(first: f32, second: f32) -> Result<String, String> {
@@ -45,11 +46,23 @@ mod tests {
 
     #[test]
     fn test_calculate_percentage_change() {
-        assert_eq!(calculate_percentage_change(1.0, 2.0), Ok("+100%".to_string()));
-        assert_eq!(calculate_percentage_change(2.0, 1.0), Ok("-50%".to_string()));
+        assert_eq!(
+            calculate_percentage_change(1.0, 2.0),
+            Ok("+100%".to_string())
+        );
+        assert_eq!(
+            calculate_percentage_change(2.0, 1.0),
+            Ok("-50%".to_string())
+        );
         assert_eq!(calculate_percentage_change(1.0, 1.0), Ok("0%".to_string()));
-        assert_eq!(calculate_percentage_change(1.2, 2.4), Ok("+100%".to_string()));
-        assert_eq!(calculate_percentage_change(2.4, 1.2), Ok("-50%".to_string()));
+        assert_eq!(
+            calculate_percentage_change(1.2, 2.4),
+            Ok("+100%".to_string())
+        );
+        assert_eq!(
+            calculate_percentage_change(2.4, 1.2),
+            Ok("-50%".to_string())
+        );
         assert_eq!(calculate_percentage_change(1.1, 1.1), Ok("0%".to_string()));
     }
 }
