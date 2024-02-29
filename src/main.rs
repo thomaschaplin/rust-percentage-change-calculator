@@ -9,9 +9,17 @@ fn main() {
 
     let first = parse_input(&args[1]);
     let second = parse_input(&args[2]);
-    match calculate_percentage_change(first, second) {
-        Ok(percentage_change) => println!("{}", percentage_change),
-        Err(err) => {
+    match (first, second) {
+        (Ok(first), Ok(second)) => {
+            match calculate_percentage_change(first, second) {
+                Ok(percentage_change) => println!("{}", percentage_change),
+                Err(err) => {
+                    eprintln!("{}", err);
+                    std::process::exit(1);
+                }
+            }
+        }
+        (Err(err), _) | (_, Err(err)) => {
             eprintln!("{}", err);
             std::process::exit(1);
         }
